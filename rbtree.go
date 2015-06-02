@@ -155,6 +155,21 @@ func (t *Rbtree) Delete(item Item) {
 	t.delete(&Node{t.NIL, t.NIL, t.NIL, RED, item})
 }
 
+// Use by client
+func (t *Rbtree) Get(item Item) Item {
+	if item == nil {
+		return nil
+	}
+
+	// The `color` field here is nobody
+	ret := t.search(&Node{t.NIL, t.NIL, t.NIL, RED, item})
+	if ret == nil {
+		return nil
+	}
+
+	return ret.Item
+}
+
 func (t *Rbtree) insert(z *Node) {
 	x := t.root
 	y := t.NIL
