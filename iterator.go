@@ -36,7 +36,7 @@ func (t *Rbtree) Descend(pivot Item, iterator Iterator) {
 }
 
 func (t *Rbtree) descend(x *Node, pivot Item, iterator Iterator) bool {
-	if x == nil {
+	if x == t.NIL {
 		return true
 	}
 

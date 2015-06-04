@@ -5,6 +5,7 @@
 package rbtree
 
 import (
+	"reflect"
 	"testing"
 )
 
@@ -58,5 +59,37 @@ func TestDelete(t *testing.T) {
 	rbt.Delete(Int(3))
 	if rbt.Len() != 0 {
 		t.Errorf("tree.Len() = %d, expect %d", rbt.Len(), 3)
+	}
+}
+
+func TestDescend(t *testing.T) {
+	rbt := New()
+
+	m := 0
+	n := 10
+	for m < n {
+		rbt.Insert(Int(m))
+		m++
+	}
+
+	var ret []Item
+
+	rbt.Descend(Int(1), func(i Item) bool {
+		ret = append(ret, i)
+		return true
+	})
+	expected := []Item{Int(1), Int(0)}
+	if !reflect.DeepEqual(ret, expected) {
+		t.Errorf("expected %v but got %v", expected, ret)
+	}
+
+	ret = nil
+	rbt.Descend(Int(10), func(i Item) bool {
+		ret = append(ret, i)
+		return true
+	})
+	expected = []Item{Int(9), Int(8), Int(7), Int(6), Int(5), Int(4), Int(3), Int(2), Int(1), Int(0)}
+	if !reflect.DeepEqual(ret, expected) {
+		t.Errorf("expected %v but got %v", expected, ret)
 	}
 }
