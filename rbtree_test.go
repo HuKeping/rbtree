@@ -86,3 +86,22 @@ func TestDescend(t *testing.T) {
 		t.Errorf("expected %v but got %v", expected, ret)
 	}
 }
+
+func TestGet(t *testing.T) {
+	rbt := New()
+
+	rbt.Insert(Int(1))
+	rbt.Insert(Int(2))
+	rbt.Insert(Int(3))
+
+	no := rbt.Get(Int(100))
+	ok := rbt.Get(Int(1))
+
+	if no != nil {
+		t.Errorf("100 is expect not exists")
+	}
+
+	if ok == nil {
+		t.Errorf("1 is expect exists")
+	}
+}
