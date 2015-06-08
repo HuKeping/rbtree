@@ -61,3 +61,13 @@ func (t *Rbtree) Min() Item {
 
 	return x.Item
 }
+
+func (t *Rbtree) Max() Item {
+	x := t.max(t.root)
+
+	if x == t.NIL {
+		return nil
+	}
+
+	return x.Item
+}
