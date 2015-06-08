@@ -285,7 +285,8 @@ func (t *Rbtree) insertFixup(z *Node) {
 	t.root.Color = BLACK
 }
 
-//TODO: Need Document
+// Just traverse the node from root to left recursively until left is NIL.
+// The node whose left is NIL is the node with minimum value.
 func (t *Rbtree) min(x *Node) *Node {
 	if x == t.NIL {
 		return t.NIL
@@ -293,6 +294,20 @@ func (t *Rbtree) min(x *Node) *Node {
 
 	for x.Left != t.NIL {
 		x = x.Left
+	}
+
+	return x
+}
+
+// Just traverse the node from root to right recursively until right is NIL.
+// The node whose right is NIL is the node with maximum value.
+func (t *Rbtree) max(x *Node) *Node {
+	if x == t.NIL {
+		return t.NIL
+	}
+
+	for x.Right != t.NIL {
+		x = x.Right
 	}
 
 	return x

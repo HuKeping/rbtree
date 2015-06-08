@@ -127,3 +127,16 @@ func TestAscend(t *testing.T) {
 		t.Errorf("expected %v but got %v", expected, ret)
 	}
 }
+
+func TestMax(t *testing.T) {
+	rbt := New()
+
+	rbt.Insert(String("z"))
+	rbt.Insert(String("h"))
+	rbt.Insert(String("a"))
+
+	expected := String("z")
+	if rbt.Max() != expected {
+		t.Errorf("expected Max of tree as %v but got %v", expected, rbt.Max())
+	}
+}
