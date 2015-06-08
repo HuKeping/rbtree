@@ -105,3 +105,25 @@ func TestGet(t *testing.T) {
 		t.Errorf("1 is expect exists")
 	}
 }
+
+func TestAscend(t *testing.T) {
+	rbt := New()
+
+	rbt.Insert(String("a"))
+	rbt.Insert(String("b"))
+	rbt.Insert(String("c"))
+	rbt.Insert(String("d"))
+
+	rbt.Delete(rbt.Min())
+
+	var ret []Item
+	rbt.Ascend(rbt.Min(), func(i Item) bool {
+		ret = append(ret, i)
+		return true
+	})
+
+	expected := []Item{String("b"), String("c"), String("d")}
+	if !reflect.DeepEqual(ret, expected) {
+		t.Errorf("expected %v but got %v", expected, ret)
+	}
+}
