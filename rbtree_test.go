@@ -9,17 +9,25 @@ import (
 	"testing"
 )
 
-func TestInsertInt(t *testing.T) {
+func TestInsertAndDelete(t *testing.T) {
 	rbt := New()
 
-	rbt.Insert(Int(1))
-	rbt.Insert(Int(2))
-	rbt.Insert(Int(3))
-	rbt.Insert(Int(4))
-	rbt.Insert(Int(5))
+	m := 0
+	n := 1000
+	for m < n {
+		rbt.Insert(Int(m))
+		m++
+	}
+	if rbt.Len() != uint(n) {
+		t.Errorf("tree.Len() = %d, expect %d", rbt.Len(), n)
+	}
 
-	if rbt.Len() != 5 {
-		t.Errorf("tree.Len() = %d, expect %d", rbt.Len(), 5)
+	for m > 0 {
+		rbt.Delete(Int(m))
+		m--
+	}
+	if rbt.Len() != 1 {
+		t.Errorf("tree.Len() = %d, expect %d", rbt.Len(), 1)
 	}
 }
 
@@ -44,21 +52,6 @@ func TestInsertDup(t *testing.T) {
 
 	if rbt.Len() != 1 {
 		t.Errorf("tree.Len() = %d, expect %d", rbt.Len(), 1)
-	}
-}
-
-func TestDelete(t *testing.T) {
-	rbt := New()
-
-	rbt.Insert(Int(1))
-	rbt.Insert(Int(2))
-	rbt.Insert(Int(3))
-
-	rbt.Delete(Int(1))
-	rbt.Delete(Int(2))
-	rbt.Delete(Int(3))
-	if rbt.Len() != 0 {
-		t.Errorf("tree.Len() = %d, expect %d", rbt.Len(), 3)
 	}
 }
 
