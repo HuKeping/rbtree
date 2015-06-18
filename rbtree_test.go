@@ -140,3 +140,23 @@ func TestMax(t *testing.T) {
 		t.Errorf("expected Max of tree as %v but got %v", expected, rbt.Max())
 	}
 }
+
+func TestAscendRange(t *testing.T) {
+	rbt := New()
+
+	strings := []String{"a", "b", "c", "aa", "ab", "ac", "abc", "acb", "bac"}
+	for _, v := range strings {
+		rbt.Insert(v)
+	}
+
+	var ret []Item
+	rbt.AscendRange(String("ab"), String("b"), func(i Item) bool {
+		ret = append(ret, i)
+		return true
+	})
+	expected := []Item{String("ab"), String("abc"), String("ac"), String("acb")}
+
+	if !reflect.DeepEqual(ret, expected) {
+		t.Errorf("expected %v but got %v", expected, ret)
+	}
+}
