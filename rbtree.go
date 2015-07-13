@@ -48,8 +48,6 @@ func less(x, y Item) bool {
 // New returns an initialized Red-Black tree
 func New() *Rbtree { return new(Rbtree).Init() }
 
-func (t *Rbtree) Len() uint { return t.count }
-
 func (t *Rbtree) Init() *Rbtree {
 	node := &Node{nil, nil, nil, BLACK, nil}
 	return &Rbtree{
@@ -133,41 +131,6 @@ func (t *Rbtree) rightRotate(x *Node) {
 
 	y.Right = x
 	x.Parent = y
-}
-
-// Use by client
-func (t *Rbtree) Insert(item Item) {
-	if item == nil {
-		return
-	}
-
-	// Always insert a RED node
-	t.insert(&Node{t.NIL, t.NIL, t.NIL, RED, item})
-}
-
-// Use by client
-func (t *Rbtree) Delete(item Item) {
-	if item == nil {
-		return
-	}
-
-	// The `color` field here is nobody
-	t.delete(&Node{t.NIL, t.NIL, t.NIL, RED, item})
-}
-
-// Use by client
-func (t *Rbtree) Get(item Item) Item {
-	if item == nil {
-		return nil
-	}
-
-	// The `color` field here is nobody
-	ret := t.search(&Node{t.NIL, t.NIL, t.NIL, RED, item})
-	if ret == nil {
-		return nil
-	}
-
-	return ret.Item
 }
 
 func (t *Rbtree) insert(z *Node) {
@@ -311,12 +274,6 @@ func (t *Rbtree) max(x *Node) *Node {
 	}
 
 	return x
-}
-
-//TODO: This is for debug, delete it in the future
-func (t *Rbtree) Search(item Item) *Node {
-
-	return t.search(&Node{t.NIL, t.NIL, t.NIL, RED, item})
 }
 
 func (t *Rbtree) search(x *Node) *Node {

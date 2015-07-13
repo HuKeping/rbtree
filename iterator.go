@@ -79,23 +79,3 @@ func (t *Rbtree) ascendRange(x *Node, inf, sup Item, iterator Iterator) bool {
 	}
 	return t.ascendRange(x.Right, inf, sup, iterator)
 }
-
-func (t *Rbtree) Min() Item {
-	x := t.min(t.root)
-
-	if x == t.NIL {
-		return nil
-	}
-
-	return x.Item
-}
-
-func (t *Rbtree) Max() Item {
-	x := t.max(t.root)
-
-	if x == t.NIL {
-		return nil
-	}
-
-	return x.Item
-}
