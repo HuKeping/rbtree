@@ -312,9 +312,6 @@ func (t *Rbtree) successor(x *Node) *Node {
 }
 
 //TODO: Need Document
-//
-// I don't know if it is ok to name the function name as `delete`,
-// it seems that `delete` is a reserved word of golang.
 func (t *Rbtree) delete(key *Node) {
 	z := t.search(key)
 
@@ -360,9 +357,6 @@ func (t *Rbtree) delete(key *Node) {
 	}
 
 	t.count--
-
-	// TODO: What is the right way to free resouce in Golang?
-	// delete(y)
 }
 
 func (t *Rbtree) deleteFixup(x *Node) {
