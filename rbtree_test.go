@@ -31,6 +31,44 @@ func TestInsertAndDelete(t *testing.T) {
 	}
 }
 
+type testStruct struct {
+	id   int
+	text string
+}
+
+func (ts *testStruct) Less(than Item) bool {
+	return ts.id < than.(*testStruct).id
+}
+
+func TestInsertOrGet(t *testing.T) {
+	rbt := New()
+
+	items := []*testStruct{
+		{1, "this"},
+		{2, "is"},
+		{3, "a"},
+		{4, "test"},
+	}
+
+	for i := range items {
+		rbt.Insert(items[i])
+	}
+
+	newItem := &testStruct{items[0].id, "not"}
+	newItem = rbt.InsertOrGet(newItem).(*testStruct)
+
+	if newItem.text != items[0].text {
+		t.Errorf("tree.InsertOrGet = {id: %d, text: %s}, expect {id %d, text %s}", newItem.id, newItem.text, items[0].id, items[0].text)
+	}
+
+	newItem = &testStruct{5, "new"}
+	newItem = rbt.InsertOrGet(newItem).(*testStruct)
+
+	if newItem.text != "new" {
+		t.Errorf("tree.InsertOrGet = {id: %d, text: %s}, expect {id %d, text %s}", newItem.id, newItem.text, 5, "new")
+	}
+}
+
 func TestInsertString(t *testing.T) {
 	rbt := New()
 

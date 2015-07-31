@@ -133,7 +133,7 @@ func (t *Rbtree) rightRotate(x *Node) {
 	x.Parent = y
 }
 
-func (t *Rbtree) insert(z *Node) {
+func (t *Rbtree) insert(z *Node) *Node {
 	x := t.root
 	y := t.NIL
 
@@ -144,7 +144,7 @@ func (t *Rbtree) insert(z *Node) {
 		} else if less(x.Item, z.Item) {
 			x = x.Right
 		} else {
-			return
+			return x
 		}
 	}
 
@@ -159,6 +159,7 @@ func (t *Rbtree) insert(z *Node) {
 
 	t.count++
 	t.insertFixup(z)
+	return z
 }
 
 func (t *Rbtree) insertFixup(z *Node) {
