@@ -20,6 +20,18 @@ func (t *Rbtree) Insert(item Item) {
 	t.insert(&Node{t.NIL, t.NIL, t.NIL, RED, item})
 }
 
+//InsertOrGet inserts or retrieves the item in the tree. If the
+//item is already in the tree then the return value will be that.
+//If the item is not in the tree the return value will be the item
+//you put in.
+func (t *Rbtree) InsertOrGet(item Item) Item {
+	if item == nil {
+		return nil
+	}
+
+	return t.insert(&Node{t.NIL, t.NIL, t.NIL, RED, item}).Item
+}
+
 func (t *Rbtree) Delete(item Item) {
 	if item == nil {
 		return
