@@ -387,9 +387,10 @@ func (t *Rbtree) deleteFixup(x *Node) {
 				x.Parent.Color = BLACK
 				w.Right.Color = BLACK
 				t.leftRotate(x.Parent)
+				// this is to exit while loop
 				x = t.root
 			}
-		} else {
+		} else { // the code below is has left and right switched from above
 			w := x.Parent.Left
 			if w.Color == RED {
 				w.Color = BLACK
