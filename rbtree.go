@@ -319,6 +319,7 @@ func (t *Rbtree) delete(key *Node) *Node {
 	if z == t.NIL {
 		return t.NIL
 	}
+	ret := &Node{t.NIL, t.NIL, t.NIL, z.Color, z.Item}
 
 	var y *Node
 	var x *Node
@@ -359,7 +360,7 @@ func (t *Rbtree) delete(key *Node) *Node {
 
 	t.count--
 
-	return z
+	return ret
 }
 
 func (t *Rbtree) deleteFixup(x *Node) {
