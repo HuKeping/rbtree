@@ -313,11 +313,11 @@ func (t *Rbtree) successor(x *Node) *Node {
 }
 
 //TODO: Need Document
-func (t *Rbtree) delete(key *Node) {
+func (t *Rbtree) delete(key *Node) *Node {
 	z := t.search(key)
 
 	if z == t.NIL {
-		return
+		return t.NIL
 	}
 
 	var y *Node
@@ -358,6 +358,8 @@ func (t *Rbtree) delete(key *Node) {
 	}
 
 	t.count--
+
+	return z
 }
 
 func (t *Rbtree) deleteFixup(x *Node) {
