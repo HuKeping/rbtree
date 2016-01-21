@@ -349,10 +349,6 @@ func (t *Rbtree) delete(key *Node) {
 		y.Parent.Right = x
 	}
 
-	if y != z {
-		z.Item = y.Item
-	}
-
 	if y.Color == BLACK {
 		t.deleteFixup(x)
 	}
