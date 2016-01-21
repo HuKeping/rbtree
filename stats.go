@@ -32,13 +32,13 @@ func (t *Rbtree) InsertOrGet(item Item) Item {
 	return t.insert(&Node{t.NIL, t.NIL, t.NIL, RED, item}).Item
 }
 
-func (t *Rbtree) Delete(item Item) {
+func (t *Rbtree) Delete(item Item) Item {
 	if item == nil {
-		return
+		return nil
 	}
 
 	// The `color` field here is nobody
-	t.delete(&Node{t.NIL, t.NIL, t.NIL, RED, item})
+	return t.delete(&Node{t.NIL, t.NIL, t.NIL, RED, item}).Item
 }
 
 func (t *Rbtree) Get(item Item) Item {
