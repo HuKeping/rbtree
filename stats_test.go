@@ -30,3 +30,26 @@ func TestDeleteReturnValue(t *testing.T) {
 		t.Errorf("expect %v, got %v", nil, deletedC)
 	}
 }
+
+func TestMin(t *testing.T) {
+	rbt := New()
+
+	m := 0
+	n := 1000
+	for m < n {
+		rbt.Insert(Int(m))
+		m++
+	}
+	if rbt.Len() != uint(n) {
+		t.Errorf("tree.Len() = %d, expect %d", rbt.Len(), n)
+	}
+
+	for m >= 0 {
+		rbt.Delete(rbt.Min())
+		m--
+	}
+
+	if rbt.Len() != 0 {
+		t.Errorf("tree.Len() = %d, expect %d", rbt.Len(), 0)
+	}
+}
