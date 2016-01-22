@@ -350,7 +350,7 @@ func (t *Rbtree) delete(key *Node) {
 	}
 	
         if y != z {              
-            z.itemPtr = y.itemPtr
+            z.Item = y.Item
         }
         
 	if y.Color == BLACK {
