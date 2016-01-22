@@ -359,9 +359,9 @@ func (t *Rbtree) delete(key *Node) {
         
         /*someone may save y node for iterator, after y is deleted, as a successor, fix the relation for later use*/
 	if y != z {
-	    y.left = z.left
-	    y.right = z.right
-	    y.parent = z.parent
+	    y.Left = z.Left
+	    y.Right = z.Right
+	    y.Parent = z.Parent
 	}
 	
 	t.count--
