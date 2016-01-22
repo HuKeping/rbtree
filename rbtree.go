@@ -348,11 +348,22 @@ func (t *Rbtree) delete(key *Node) {
 	} else {
 		y.Parent.Right = x
 	}
-
+	
+        if y != z {              
+            z.itemPtr = y.itemPtr
+        }
+        
 	if y.Color == BLACK {
 		t.deleteFixup(x)
 	}
-
+        
+        /*someone may save y node for iterator, after y is deleted, as a successor, fix the relation for later use*/
+	if y != z {
+	    y.left = z.left
+	    y.right = z.right
+	    y.parent = z.parent
+	}
+	
 	t.count--
 }
 
