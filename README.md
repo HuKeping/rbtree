@@ -7,7 +7,7 @@ This is an implementation of Red-Black tree written by Golang.
 With a healthy Go language installed, simply run `go get github.com/HuKeping/rbtree`
 
 ## Example
-All you have to do is implement a comparison function `Less() bool` for your Item
+All you have to do is to implement a comparison function `Less() bool` for your Item
 which will be store in the Red-Black tree, here are some examples.
 #### A simple case for `int` items.
 	package main
