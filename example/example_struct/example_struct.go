@@ -12,7 +12,7 @@ import (
 
 type Var struct {
 	Expiry time.Time `json:"expiry,omitempty"`
-	ID     string    `json:"id",omitempty`
+	ID     string    `json:"id,omitempty"`
 }
 
 // We will order the node by `Time`
