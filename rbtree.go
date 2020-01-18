@@ -15,6 +15,8 @@ package rbtree
 //  5) Every simple path from root to leaves contains the same number
 //     of black nodes.
 //
+
+// Node of the rbtree has a pointer of the node of parent, left, right, also has own color and Item which client uses
 type Node struct {
 	Left   *Node
 	Right  *Node
@@ -26,10 +28,13 @@ type Node struct {
 }
 
 const (
-	RED   = 0
+	// RED represents the color of the node is red
+	RED = 0
+	// BLACK represents the color of the node is black
 	BLACK = 1
 )
 
+// Item has a method to compare items which is less
 type Item interface {
 	Less(than Item) bool
 }
@@ -48,6 +53,7 @@ func less(x, y Item) bool {
 // New returns an initialized Red-Black tree
 func New() *Rbtree { return new(Rbtree).Init() }
 
+// Init returns the initial of rbtree
 func (t *Rbtree) Init() *Rbtree {
 	node := &Node{nil, nil, nil, BLACK, nil}
 	return &Rbtree{

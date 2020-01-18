@@ -6,6 +6,7 @@ package main
 
 import (
 	"fmt"
+
 	"github.com/HuKeping/rbtree"
 )
 
@@ -28,10 +29,10 @@ func main() {
 		m++
 	}
 
-	rbt.Ascend(rbt.Min(), Print)
+	rbt.Ascend(rbt.Min(), print)
 }
 
-func Print(item rbtree.Item) bool {
+func print(item rbtree.Item) bool {
 	i, ok := item.(rbtree.Int)
 	if !ok {
 		return false
