@@ -8,9 +8,10 @@ package rbtree
 // by the user. Anyone who wants to look for some API about
 // the rbtree, this is the right place.
 
-// Number of nodes in the tree.
+// Len returns number of nodes in the tree.
 func (t *Rbtree) Len() uint { return t.count }
 
+// Insert func inserts a item as a new RED node
 func (t *Rbtree) Insert(item Item) {
 	if item == nil {
 		return
@@ -32,6 +33,7 @@ func (t *Rbtree) InsertOrGet(item Item) Item {
 	return t.insert(&Node{t.NIL, t.NIL, t.NIL, RED, item}).Item
 }
 
+//Delete delete the item in the tree
 func (t *Rbtree) Delete(item Item) Item {
 	if item == nil {
 		return nil
@@ -41,6 +43,7 @@ func (t *Rbtree) Delete(item Item) Item {
 	return t.delete(&Node{t.NIL, t.NIL, t.NIL, RED, item}).Item
 }
 
+//Get search for the specified items which is carried by a Node
 func (t *Rbtree) Get(item Item) Item {
 	if item == nil {
 		return nil
@@ -55,12 +58,14 @@ func (t *Rbtree) Get(item Item) Item {
 	return ret.Item
 }
 
+// Search does only search the node which includes it node
 //TODO: This is for debug, delete it in the future
 func (t *Rbtree) Search(item Item) *Node {
 
 	return t.search(&Node{t.NIL, t.NIL, t.NIL, RED, item})
 }
 
+// Min return the item minimum one
 func (t *Rbtree) Min() Item {
 	x := t.min(t.root)
 
@@ -71,6 +76,7 @@ func (t *Rbtree) Min() Item {
 	return x.Item
 }
 
+// Max return the item maxmum one
 func (t *Rbtree) Max() Item {
 	x := t.max(t.root)
 

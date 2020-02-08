@@ -4,6 +4,18 @@
 
 package rbtree
 
+// Iterator is the function of iteration entity which would be
+// used by those functions like `Ascend`, `Dscend`, etc.
+//
+// A typical Iterator with Print :
+// func loop_with_print(item rbtree.Item) bool {
+//         i, ok := item.(XXX)
+//         if !ok {
+//                 return false
+//         }
+//         fmt.Printf("%+v\n", i)
+//         return true
+// }
 type Iterator func(i Item) bool
 
 // Ascend will call iterator once for each element greater or equal than pivot

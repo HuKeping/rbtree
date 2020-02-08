@@ -6,16 +6,18 @@ package main
 
 import (
 	"fmt"
-	"github.com/HuKeping/rbtree"
 	"time"
+
+	"github.com/HuKeping/rbtree"
 )
 
+// Var is the node of a struct
 type Var struct {
 	Expiry time.Time `json:"expiry,omitempty"`
 	ID     string    `json:"id,omitempty"`
 }
 
-// We will order the node by `Time`
+// Less will order the node by `Time`
 func (x Var) Less(than rbtree.Item) bool {
 	return x.Expiry.Before(than.(Var).Expiry)
 }
@@ -56,10 +58,10 @@ func main() {
 	}
 
 	// var4 and var5 were expected
-	rbt.Ascend(rbt.Get(tmp), Print)
+	rbt.Ascend(rbt.Get(tmp), print)
 }
 
-func Print(item rbtree.Item) bool {
+func print(item rbtree.Item) bool {
 	i, ok := item.(Var)
 	if !ok {
 		return false
