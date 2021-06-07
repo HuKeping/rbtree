@@ -1,6 +1,6 @@
 # Rbtree  [![GoDoc](https://godoc.org/github.com/HuKeping/rbtree?status.svg)](https://godoc.org/github.com/HuKeping/rbtree)
 
-This is an implementation of Red-Black tree written by Golang and does **not** support `duplicate keys`.
+This is an implementation of Red-Black tree written by Golang which does **not** support `duplicate keys`.
 
 ## Installation
 
