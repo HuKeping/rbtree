@@ -394,3 +394,95 @@ func (t *GenericRbtree[T]) deleteFixup(x *genericNode[T]) {
 	}
 	x.color = BLACK
 }
+
+// AscendRange iterates over elements in the range [ge, lt) in ascending order.
+// The iteration stops when iterator returns false.
+func (t *GenericRbtree[T]) AscendRange(ge, lt T, iterator func(T) bool) {
+	t.ascendRange(t.root, ge, lt, iterator)
+}
+
+// Ascend iterates over all elements >= pivot in ascending order.
+// The iteration stops when iterator returns false.
+func (t *GenericRbtree[T]) Ascend(pivot T, iterator func(T) bool) {
+	t.ascend(t.root, pivot, iterator)
+}
+
+// Descend iterates over all elements <= pivot in descending order.
+// The iteration stops when iterator returns false.
+func (t *GenericRbtree[T]) Descend(pivot T, iterator func(T) bool) {
+	t.descend(t.root, pivot, iterator)
+}
+
+// ForEach iterates over all elements in ascending order.
+// The iteration stops when iterator returns false.
+func (t *GenericRbtree[T]) ForEach(iterator func(T) bool) {
+	t.forEach(t.root, iterator)
+}
+
+func (t *GenericRbtree[T]) forEach(x *genericNode[T], iterator func(T) bool) bool {
+	if x == t.nilNode {
+		return true
+	}
+	if !t.forEach(x.left, iterator) {
+		return false
+	}
+	if !iterator(x.value) {
+		return false
+	}
+	return t.forEach(x.right, iterator)
+}
+
+func (t *GenericRbtree[T]) ascend(x *genericNode[T], pivot T, iterator func(T) bool) bool {
+	if x == t.nilNode {
+		return true
+	}
+
+	if !x.value.Less(pivot) {
+		if !t.ascend(x.left, pivot, iterator) {
+			return false
+		}
+		if !iterator(x.value) {
+			return false
+		}
+	}
+
+	return t.ascend(x.right, pivot, iterator)
+}
+
+func (t *GenericRbtree[T]) descend(x *genericNode[T], pivot T, iterator func(T) bool) bool {
+	if x == t.nilNode {
+		return true
+	}
+
+	if !pivot.Less(x.value) {
+		if !t.descend(x.right, pivot, iterator) {
+			return false
+		}
+		if !iterator(x.value) {
+			return false
+		}
+	}
+
+	return t.descend(x.left, pivot, iterator)
+}
+
+func (t *GenericRbtree[T]) ascendRange(x *genericNode[T], ge, lt T, iterator func(T) bool) bool {
+	if x == t.nilNode {
+		return true
+	}
+
+	if !x.value.Less(lt) {
+		return t.ascendRange(x.left, ge, lt, iterator)
+	}
+	if x.value.Less(ge) {
+		return t.ascendRange(x.right, ge, lt, iterator)
+	}
+
+	if !t.ascendRange(x.left, ge, lt, iterator) {
+		return false
+	}
+	if !iterator(x.value) {
+		return false
+	}
+	return t.ascendRange(x.right, ge, lt, iterator)
+}
