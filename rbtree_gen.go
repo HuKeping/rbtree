@@ -115,9 +115,24 @@ func (t *GenericRbtree[T]) Max() (T, bool) {
 }
 
 // Clear removes all elements from the tree.
+// It clears all node references to allow immediate GC.
 func (t *GenericRbtree[T]) Clear() {
+	t.clearTree(t.root)
 	t.root = t.nilNode
 	t.count = 0
+}
+
+// clearTree recursively clears all node references to help GC
+func (t *GenericRbtree[T]) clearTree(x *genericNode[T]) {
+	if x == t.nilNode {
+		return
+	}
+	t.clearTree(x.left)
+	t.clearTree(x.right)
+	// Clear references to help GC
+	x.left = nil
+	x.right = nil
+	x.parent = nil
 }
 
 // --- Internal methods ---

@@ -191,6 +191,17 @@ func TestGenericClear(t *testing.T) {
 	if ok {
 		t.Errorf("Min() after Clear() should return false")
 	}
+
+	// Verify tree can be reused after Clear
+	rbt.Insert(IntWithLess(10))
+	rbt.Insert(IntWithLess(20))
+	if rbt.Len() != 2 {
+		t.Errorf("Len() after re-insert = %d, expect 2", rbt.Len())
+	}
+	val, ok := rbt.Get(IntWithLess(10))
+	if !ok || val != IntWithLess(10) {
+		t.Errorf("Get after Clear failed")
+	}
 }
 
 func TestGenericAscend(t *testing.T) {
@@ -272,6 +283,36 @@ func TestGenericForEach(t *testing.T) {
 	expected := []IntWithLess{1, 2, 3}
 	if !reflect.DeepEqual(ret, expected) {
 		t.Errorf("expected %v but got %v", expected, ret)
+	}
+}
+
+func TestGenericAscendRangeEmpty(t *testing.T) {
+	rbt := NewGeneric[IntWithLess]()
+
+	rbt.Insert(IntWithLess(1))
+	rbt.Insert(IntWithLess(2))
+	rbt.Insert(IntWithLess(3))
+	rbt.Insert(IntWithLess(4))
+	rbt.Insert(IntWithLess(5))
+
+	// Test empty range: ge == lt
+	var ret []IntWithLess
+	rbt.AscendRange(IntWithLess(3), IntWithLess(3), func(i IntWithLess) bool {
+		ret = append(ret, i)
+		return true
+	})
+	if len(ret) != 0 {
+		t.Errorf("AscendRange(3, 3) should return empty, got %v", ret)
+	}
+
+	// Test invalid range: ge > lt
+	ret = nil
+	rbt.AscendRange(IntWithLess(4), IntWithLess(2), func(i IntWithLess) bool {
+		ret = append(ret, i)
+		return true
+	})
+	if len(ret) != 0 {
+		t.Errorf("AscendRange(4, 2) should return empty, got %v", ret)
 	}
 }
 
